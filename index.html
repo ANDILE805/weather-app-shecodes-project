@@ -8,6 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="https://i.pinimg.com/originals/77/0b/80/770b805d5c99c7931366c2e84e88f251.png" type="image/x-icon">
 <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <title>Weather App</title>
   </head>
@@ -30,13 +31,13 @@
           <div>
              <h1 class="weather-app-city" id="city"></h1>
             <p class="weather-app-details">
-              <span class="app-date"></span>, scattered clouds
+              <span class="app-date"></span>, <span id="description"></span>
               <br />
-              Humidity: <strong>66%</strong>, Wind: <strong>3.13km/h</strong>
+             Humidity: <strong><span id="humidity"></span>%</strong>  , Wind: <strong><span id="wind"></span> km/h</strong>
             </p>
           </div>
           <div class="weather-app-temperature-container">
-            <div class="weather-app-icon">🌤️</div>
+            <div id="icon-image"></div>
             <div class="weather-app-temperature"></div>
             <div class="weather-app-unit">°C</div>
         </div>
