@@ -14,6 +14,8 @@ function updateWeather(response) {
   windElement.innerHTML = response.data.wind.speed;
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" alt=""
               class="weather-app-icon"></img>`;
+
+  getForecast(response.data.city);
 }
 
 function searchCity(city) {
@@ -63,25 +65,40 @@ let currentDate = new Date();
 
 currentDateELement.innerHTML = formatDate(currentDate);
 
-function updateForecast() {
+function currentDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+  return days[date.getDay()];
+}
+
+function updateForecast(response) {
+  console.log(response.data);
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Tues", "Wed", "Thur", "Fri", "Sat"];
   let forecastHtml = "";
 
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `<div class="weather-forecast-day">
-   <div class="weather-forecast-date">${day}</div>
-   <div class="weather-forecast-icon">🌤️</div>
+  response.data.daily.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHtml =
+        forecastHtml +
+        `<div class="weather-forecast-day">
+   <div class="weather-forecast-date">${currentDay(day.time)}</div>
+   <img src = "${day.condition.icon_url}" class="weather-forecast-icon"/>
    <div class="weather-forecast-temperatures">
      <div class="weather-forecast-temperature">
-       <strong>15º</strong>
+       <strong>${Math.round(day.temperature.maximum)}º</strong>
      </div>
-     <div class="weather-forecast-temperature">9º</div>
+     <div class="weather-forecast-temperature">${Math.round(
+       day.temperature.minimum
+     )}º</div>
    </div>
  </div>`;
+    }
   });
   forecastElement.innerHTML = forecastHtml;
 }
-updateForecast();
+
+function getForecast(city) {
+  let apiKey = "cd7ff0b39233e546tfae64f37ao44b9a";
+  apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&unit=metric`;
+  axios.get(apiUrl).then(updateForecast);
+}
