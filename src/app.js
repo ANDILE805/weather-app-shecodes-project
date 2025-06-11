@@ -20,9 +20,18 @@ function updateWeather(response) {
 
 function searchCity(city) {
   let apiKey = "cd7ff0b39233e546tfae64f37ao44b9a";
-  apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&unit=metric`;
-  axios.get(apiUrl).then(updateWeather);
+  const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&unit=metric`;
+  
+  axios.get(apiUrl)
+    .then((response) => {
+      document.querySelector("#alert").classList.add("hidden"); // hide alert if visible
+      updateWeather(response);
+    })
+    .catch(() => {
+      document.querySelector("#alert").classList.remove("hidden");
+    });
 }
+
 
 function search(event) {
   event.preventDefault();
