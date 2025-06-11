@@ -41,7 +41,7 @@ function search(event) {
 
 let searchFormElement = document.querySelector("form");
 searchFormElement.addEventListener("submit", search);
-searchCity("Osizweni");
+searchCity("Cape Town");
 
 function formatDate(date) {
   let minutes = date.getMinutes();
